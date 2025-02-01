@@ -1,0 +1,16 @@
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - dotnet --version
+        - dotnet publish -c Release -o wwwroot
+    build:
+      commands:
+        - cp -r wwwroot/* $AMPLIFY_APP_ROOT/
+  artifacts:
+    baseDirectory: wwwroot
+    files:
+      - '**/*'
+  cache:
+    paths: []
