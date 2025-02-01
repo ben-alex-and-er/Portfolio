@@ -1,0 +1,23 @@
+﻿@page "/login"
+
+
+@using Portfolio.Components.Layout
+
+
+@layout LoginLayout
+
+
+<PageTitle>Login</PageTitle>
+
+
+<div class="login-box">
+	Username:
+	<InputText DisplayName="UserName" @bind-Value=username />
+
+	Password:
+	<InputText DisplayName="Password" @bind-Value=password />
+
+	<button style="margin-top: 10px;" @onclick=Submit>
+		Submit
+	</button>
+</div>

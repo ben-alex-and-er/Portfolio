@@ -1,0 +1,36 @@
+﻿:root {
+	--background-color: #ffffff;
+	--background-color-2: #808080;
+	--background-color-3: #000000;
+	--text-color: #000000;
+	--text-color-2: #ffffff;
+	--text-color-3: #ffffff;
+}
+
+footer {
+	text-align: center;
+	color: var(--text-color-3);
+	background-color: var(--background-color-3);
+}
+
+.main {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+	background-color: var(--background-color);
+}
+
+.pad-sides {
+	padding: 0 20%;
+}
+
+.login-box {
+	display: flex;
+	flex-direction: column;
+	justify-self: center;
+	height: 50%;
+	width: 50%;
+	padding: 10px;
+	border: 2px solid black;
+	border-radius: 10px;
+}
