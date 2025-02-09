@@ -1,16 +1,37 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>9ef1961e-6403-4833-8624-51d412d79421</UserSecretsId>
-    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-    <DockerfileContext>.</DockerfileContext>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<UserSecretsId>9ef1961e-6403-4833-8624-51d412d79421</UserSecretsId>
+		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+		<DockerfileContext>.</DockerfileContext>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.20.1" />
-  </ItemGroup>
+	<ItemGroup>
+		<Compile Remove="amplify\**" />
+		<Compile Remove="ebcli-env\**" />
+		<Content Remove="amplify\**" />
+		<Content Remove="ebcli-env\**" />
+		<EmbeddedResource Remove="amplify\**" />
+		<EmbeddedResource Remove="ebcli-env\**" />
+		<None Remove="amplify\**" />
+		<None Remove="ebcli-env\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Content Remove="Dockerrun.aws.json" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Remove=".gitignore" />
+		<None Remove="amplify.yml" />
+		<None Remove="aws" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.20.1" />
+	</ItemGroup>
 
 </Project>
