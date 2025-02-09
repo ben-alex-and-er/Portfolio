@@ -1,0 +1,23 @@
+﻿@using Microsoft.AspNetCore.Components.Authorization
+@using Portfolio.Components
+
+
+@inherits LayoutComponentBase
+
+
+<AuthorizeView>
+	<Authorized>
+		<div class="main">
+			<EmptyHeader />
+
+			<div class="pad-sides" style="flex-grow: 1;">
+				@Body
+			</div>
+
+			<Footer />
+		</div>
+	</Authorized>
+	<NotAuthorized>
+		
+	</NotAuthorized>
+</AuthorizeView>

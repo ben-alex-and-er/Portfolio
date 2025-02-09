@@ -1,4 +1,4 @@
-namespace Portfolio.Components.Pages
+namespace Portfolio.Pages
 {
 	public partial class Login
 	{
