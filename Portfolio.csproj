@@ -7,6 +7,7 @@
 		<UserSecretsId>9ef1961e-6403-4833-8624-51d412d79421</UserSecretsId>
 		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
 		<DockerfileContext>.</DockerfileContext>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -32,6 +33,11 @@
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.20.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Portfolio API\Requests\Requests.csproj" />
+		<ProjectReference Include="..\Portfolio API\Responses\Responses.csproj" />
 	</ItemGroup>
 
 </Project>
