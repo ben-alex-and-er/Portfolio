@@ -29,3 +29,7 @@ amplifytools.xcconfig
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
+
+ebcli-env/
+
+aws
