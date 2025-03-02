@@ -1,4 +1,6 @@
+using Microsoft.AspNetCore.Components.Authorization;
 using Portfolio.Data.Api;
+using Portfolio.Providers.Authentication;
 using Portfolio.Services.Api;
 using Portfolio.Services.Api.Interfaces;
 using Portfolio.Services.Authentication;
@@ -9,7 +11,10 @@ internal class Program
 {
 	private static void AddServices(IHostApplicationBuilder builder)
 	{
+		builder.Services.AddScoped<AuthenticationStateProvider, AuthStateProvider>();
+
 		builder.Services.AddTransient<IApiCallerService, ApiCallerService>();
+		builder.Services.AddTransient<IAuthenticationService, AuthenticationService>();
 
 		builder.Services.AddSingleton<ApiDomain>();
 	}
@@ -37,6 +42,9 @@ internal class Program
 			app.UseExceptionHandler("/Error");
 			app.UseHsts();
 		}
+
+		app.UseAuthorization();
+		app.UseAuthentication();
 
 		app.UseHttpsRedirection();
 		app.UseStaticFiles();

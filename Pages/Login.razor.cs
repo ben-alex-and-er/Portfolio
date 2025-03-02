@@ -1,17 +1,17 @@
 using Microsoft.AspNetCore.Components;
+using Requests.Authentication;
+using Responses.Authentication.Enums;
 
 
 namespace Portfolio.Pages
 {
-	using Data.Api;
-	using Requests.Authentication;
-	using Services.Api.Interfaces;
+	using Services.Authentication.Interfaces;
 
 
 	public partial class Login : ComponentBase
 	{
 		[Inject]
-		private IApiCallerService ApiCallerService { get; set; } = default!;
+		private IAuthenticationService AuthenticationService { get; set; } = default!;
 
 		[Inject]
 		private NavigationManager NavigationManager { get; set; } = default!;
@@ -24,13 +24,14 @@ namespace Portfolio.Pages
 
 		private async Task Submit()
 		{
-			Console.WriteLine("Submit");
 			var request = new LoginRequest(username, password);
 
-			var response = await ApiCallerService.PostAsync<LoginRequest, bool>(AuthenticationEndpoints.LOGIN, request);
+			var response = await AuthenticationService.Login(request);
 
-			if (response)
-				NavigationManager.NavigateTo("home");
+			if (response != LoginResponseStatus.SUCCESS)
+				return;
+
+			NavigationManager.NavigateTo("home");
 		}
 	}
 }
