@@ -1,12 +1,15 @@
-﻿using System.Text.Json;
+﻿using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
+using System.Net.Http.Headers;
+using System.Text.Json;
 
 
 namespace Portfolio.Services.Api
 {
 	using Data.Api;
+	using Data.Security;
 	using Interfaces;
 
-	
+
 	/// <summary>
 	/// Service which calls endpoints on the api
 	/// </summary>
@@ -16,6 +19,8 @@ namespace Portfolio.Services.Api
 
 		private readonly string domain;
 
+		private readonly ProtectedLocalStorage protectedLocalStorage;
+
 		private readonly JsonSerializerOptions options;
 
 
@@ -24,10 +29,15 @@ namespace Portfolio.Services.Api
 		/// </summary>
 		/// <param name="httpClient"></param>
 		/// <param name="apiDomain"></param>
-		public ApiCallerService(HttpClient httpClient, ApiDomain apiDomain)
+		/// <param name="protectedLocalStorage"></param>
+		public ApiCallerService(
+			HttpClient httpClient,
+			ApiDomain apiDomain,
+			ProtectedLocalStorage protectedLocalStorage)
 		{
 			this.httpClient = httpClient;
 			domain = apiDomain.Domain;
+			this.protectedLocalStorage = protectedLocalStorage;
 
 			options = new JsonSerializerOptions()
 			{
@@ -39,6 +49,15 @@ namespace Portfolio.Services.Api
 		async Task<U?> IApiCallerService.PostAsync<T, U>(string endpoint, T request) where U : default
 		{
 			var url = $"{domain}/{endpoint}";
+
+			var jwtToken = await protectedLocalStorage.GetAsync<string>(JwtConsts.STORAGE_KEY);
+
+			if (jwtToken.Success)
+			{
+				var header = new AuthenticationHeaderValue(JwtConsts.BEARER_SCHEME, jwtToken.Value);
+
+				httpClient.DefaultRequestHeaders.Authorization = header;
+			}
 
 			var post = await httpClient.PostAsJsonAsync(url, request);
 
