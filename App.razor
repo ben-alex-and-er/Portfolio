@@ -3,7 +3,16 @@
 
 <Router AppAssembly="typeof(Program).Assembly">
 	<Found Context="routeData">
-		<AuthorizeRouteView RouteData="routeData" DefaultLayout="typeof(Layout.LoginLayout)" />
+		<AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(LoginLayout)">
+			<NotAuthorized>
+				<p>You are not authorized to view this page. <a href="/login">Go to login</a></p>
+			</NotAuthorized>
+		</AuthorizeRouteView>
 		<FocusOnNavigate RouteData="routeData" Selector="h1" />
 	</Found>
+	<NotFound>
+		<LayoutView Layout="@typeof(LoginLayout)">
+			<p>Sorry, the page was not found.</p>
+		</LayoutView>
+	</NotFound>
 </Router>

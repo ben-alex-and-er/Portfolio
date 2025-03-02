@@ -1,8 +1,8 @@
-using Microsoft.AspNetCore.Http.Connections;
-using Portfolio;
 using Portfolio.Data.Api;
 using Portfolio.Services.Api;
 using Portfolio.Services.Api.Interfaces;
+using Portfolio.Services.Authentication;
+using Portfolio.Services.Authentication.Interfaces;
 
 
 internal class Program
@@ -29,35 +29,25 @@ internal class Program
 		builder.Services.AddRazorPages();
 		builder.Services.AddServerSideBlazor();
 
+
 		var app = builder.Build();
 
-		// Configure the HTTP request pipeline.
 		if (!app.Environment.IsDevelopment())
 		{
-			app.UseExceptionHandler("/Error", createScopeForErrors: true);
+			app.UseExceptionHandler("/Error");
 			app.UseHsts();
 		}
 
 		app.UseHttpsRedirection();
-
 		app.UseStaticFiles();
 		app.UseRouting();
 
 		app.UseAntiforgery();
 
-		app.MapRazorComponents<App>()
-			.AddInteractiveServerRenderMode();
-
-		app.UseStatusCodePagesWithRedirects("/login");
-
-		app.MapBlazorHub(options =>
-		{
-			options.Transports = HttpTransportType.WebSockets;
-			options.AllowStatefulReconnects = true;
-		});
+		app.MapBlazorHub();
+		app.MapFallbackToPage("/_Host");
 
 		app.MapRazorPages();
-
 		app.Run();
 	}
 }
