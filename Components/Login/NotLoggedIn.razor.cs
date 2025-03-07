@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Components;
 
 
-namespace Portfolio.Components
+namespace Portfolio.Components.Login
 {
 	public partial class NotLoggedIn : ComponentBase
 	{
