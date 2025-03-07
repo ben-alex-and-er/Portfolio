@@ -39,6 +39,7 @@
 	<ItemGroup>
 		<ProjectReference Include="..\Portfolio API\Requests\Requests.csproj" />
 		<ProjectReference Include="..\Portfolio API\Responses\Responses.csproj" />
+		<ProjectReference Include="..\Portfolio API\DTOs\DTOs.csproj" />
 	</ItemGroup>
 
 </Project>
