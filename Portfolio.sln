@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Requests", "..\Portfolio AP
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Responses", "..\Portfolio API\Responses\Responses.csproj", "{5F5C02A9-8586-480B-807F-841DF91DE807}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DTOs", "..\Portfolio API\DTOs\DTOs.csproj", "{C38E42C3-28BC-4EA1-B594-C2253C055BA3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{5F5C02A9-8586-480B-807F-841DF91DE807}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5F5C02A9-8586-480B-807F-841DF91DE807}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5F5C02A9-8586-480B-807F-841DF91DE807}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C38E42C3-28BC-4EA1-B594-C2253C055BA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C38E42C3-28BC-4EA1-B594-C2253C055BA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C38E42C3-28BC-4EA1-B594-C2253C055BA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C38E42C3-28BC-4EA1-B594-C2253C055BA3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
