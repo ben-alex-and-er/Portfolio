@@ -1,4 +1,4 @@
-:root {
+﻿:root {
 	--background-color: #ffffff;
 	--background-color-2: #808080;
 	--background-color-3: #000000;
@@ -50,3 +50,18 @@ nav {
 		color: white;
 		text-decoration: none;
 	}
+
+
+.grid-2-col {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	justify-items: stretch;
+	align-items: stretch;
+}
+
+.grid-item {
+	border: 1px solid black;
+	padding: 20px;
+	text-align: center;
+	object-fit: cover;
+}
