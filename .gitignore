@@ -33,3 +33,5 @@ amplifytools.xcconfig
 ebcli-env/
 
 aws
+
+publish/

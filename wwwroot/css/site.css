@@ -34,3 +34,34 @@ footer {
 	border: 2px solid black;
 	border-radius: 10px;
 }
+
+nav {
+	display: flex;
+	justify-content: space-around;
+}
+
+	nav a{
+		color: black;
+		text-decoration: none;
+		font-size: larger
+	}
+
+	nav a:hover {
+		color: white;
+		text-decoration: none;
+	}
+
+
+.grid-2-col {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	justify-items: stretch;
+	align-items: stretch;
+}
+
+.grid-item {
+	border: 1px solid black;
+	padding: 20px;
+	text-align: center;
+	object-fit: cover;
+}

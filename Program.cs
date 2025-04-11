@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
+using Microsoft.AspNetCore.HttpOverrides;
 using Portfolio.Configuration.Google;
 using Portfolio.Data.Api;
 using Portfolio.Services.Api;
@@ -74,11 +75,15 @@ internal class Program
 			app.UseHsts();
 		}
 
-		app.UseHttpsRedirection();
 		app.UseStaticFiles();
 		app.UseRouting();
 
 		app.UseAntiforgery();
+
+		app.UseForwardedHeaders(new ForwardedHeadersOptions
+		{
+			ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+		});
 
 		app.UseAuthentication();
 		app.UseAuthorization();
