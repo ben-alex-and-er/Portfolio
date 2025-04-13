@@ -60,7 +60,6 @@ nav {
 	align-items: stretch;
 }
 
-/* Make grid stack on mobile */
 @media (max-width: 768px) {
 	.grid-2-col {
 		grid-template-columns: 1fr;
