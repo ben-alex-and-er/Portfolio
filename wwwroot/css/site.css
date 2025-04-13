@@ -60,12 +60,27 @@ nav {
 	align-items: stretch;
 }
 
+/* Make grid stack on mobile */
+@media (max-width: 768px) {
+	.grid-2-col {
+		grid-template-columns: 1fr;
+	}
+}
+
+img.grid-item {
+	max-width: 100%;
+	height: auto;
+}
+
 .grid-item {
-	border: 1px solid black;
 	padding: 20px;
 	text-align: center;
 	object-fit: cover;
 }
+
+	.grid-item:hover {
+		border: 1px solid black;
+	}
 
 .grid-item-link {
 	text-decoration: none;
