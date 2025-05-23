@@ -51,6 +51,10 @@ nav {
 		text-decoration: none;
 	}
 
+.text-indent-wrap {
+	text-indent: -1.5em;
+	padding-left: 1.5em;
+}
 
 .grid-2-col {
 	display: grid;
