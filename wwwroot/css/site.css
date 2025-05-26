@@ -77,9 +77,10 @@ nav {
 	}
 }
 
-img.grid-item {
-	max-width: 100%;
-	height: auto;
+.grid-item img {
+	width: 100%;
+	object-fit: cover;
+	object-position: top;
 }
 
 .grid-item {
