@@ -6,6 +6,7 @@ using Portfolio.Data.Analytics;
 using Portfolio.Data.Api;
 using Portfolio.Data.Generic;
 using Portfolio.DataAccessors.Analytics;
+using Portfolio.DataAccessors.Analytics.Extensions;
 using Portfolio.DataAccessors.Analytics.Interfaces;
 using Portfolio.Services.Api;
 using Portfolio.Services.Api.Interfaces;
@@ -38,9 +39,8 @@ internal class Program
 	{
 		var analyticsEventDA = provider.GetRequiredService<IAnalyticsEventDA>();
 
-		// TODO: Add checks for checking if exists first
-		await analyticsEventDA.Create(new NameGuidDTO(nameof(AnalyticsEventTypes.REGISTER), AnalyticsEventTypes.REGISTER));
-		await analyticsEventDA.Create(new NameGuidDTO(nameof(AnalyticsEventTypes.LOGIN), AnalyticsEventTypes.LOGIN));
+		await analyticsEventDA.CreateEventTypeOrThrow(new NameGuidDTO(nameof(AnalyticsEventTypes.REGISTER), AnalyticsEventTypes.REGISTER));
+		await analyticsEventDA.CreateEventTypeOrThrow(new NameGuidDTO(nameof(AnalyticsEventTypes.LOGIN), AnalyticsEventTypes.LOGIN));
 	}
 
 	private static void Main(string[] args)

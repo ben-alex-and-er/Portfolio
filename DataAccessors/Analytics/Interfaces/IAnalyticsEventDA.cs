@@ -7,6 +7,6 @@
 	/// <summary>
 	/// Data accessor for analytics event types
 	/// </summary>
-	public interface IAnalyticsEventDA : ICreate<NameGuidDTO>
+	public interface IAnalyticsEventDA : ICreate<NameGuidDTO>, IRead<NameGuidDTO>
 	{ }
 }

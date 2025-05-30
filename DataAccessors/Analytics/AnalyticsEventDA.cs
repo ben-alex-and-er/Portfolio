@@ -55,5 +55,10 @@ namespace Portfolio.DataAccessors.Analytics
 
 			return true;
 		}
+
+		IQueryable<NameGuidDTO> IRead<NameGuidDTO>.Read()
+			=> context.AnalyticsEvents
+				.AsNoTracking()
+				.Select(eventType => new NameGuidDTO(eventType.Name, eventType.Guid));
 	}
 }
