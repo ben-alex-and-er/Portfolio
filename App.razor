@@ -2,6 +2,9 @@
 @using Portfolio.Components.Login
 
 
+<RadzenTheme Theme="material" @rendermode="InteractiveAuto" />
+<RadzenComponents @rendermode="InteractiveAuto" />
+
 <Router AppAssembly="typeof(Program).Assembly">
 	<Found Context="routeData">
 		<AuthorizeRouteView RouteData="@routeData">

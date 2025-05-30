@@ -6,7 +6,7 @@ namespace Portfolio.Data.Analytics
 	/// <summary>
 	/// DTO containing details of an analytics record
 	/// </summary>
-	public record class AnalyticsDTO
+	public class AnalyticsDTO
 	{
 		/// <summary>
 		/// Type of analytics record

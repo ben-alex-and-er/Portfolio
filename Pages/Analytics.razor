@@ -1,0 +1,18 @@
+﻿@page "/analytics"
+
+
+@using Portfolio.Layout
+
+
+@layout MainLayout
+
+
+<Title>Analytics</Title>
+
+
+<RadzenChart>
+	@foreach (var series in date)
+	{
+		<RadzenLineSeries Data="@series.Value" CategoryProperty="X" ValueProperty="Y" Title="@series.Key" />
+	}
+</RadzenChart>

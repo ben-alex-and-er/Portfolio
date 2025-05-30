@@ -5,11 +5,11 @@ using Portfolio.Configuration.ServiceSetup;
 using Portfolio.Data.Analytics;
 using Portfolio.Data.Api;
 using Portfolio.Data.Generic;
-using Portfolio.DataAccessors.Analytics;
 using Portfolio.DataAccessors.Analytics.Extensions;
 using Portfolio.DataAccessors.Analytics.Interfaces;
 using Portfolio.Services.Api;
 using Portfolio.Services.Api.Interfaces;
+using Radzen;
 
 
 internal class Program
@@ -57,6 +57,7 @@ internal class Program
 
 		builder.Services.AddRazorPages();
 		builder.Services.AddServerSideBlazor();
+		builder.Services.AddRadzenComponents();
 
 
 		var app = builder.Build();

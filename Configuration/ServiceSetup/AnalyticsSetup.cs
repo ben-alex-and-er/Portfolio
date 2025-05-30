@@ -2,7 +2,8 @@
 {
 	using DataAccessors.Analytics;
 	using DataAccessors.Analytics.Interfaces;
-
+	using Services.Analytics;
+	using Services.Analytics.Interfaces;
 
 	public static partial class ServiceCollectionExtensions
 	{
@@ -13,6 +14,8 @@
 		/// <returns></returns>
 		public static IServiceCollection AddAnalyticsServices(this IServiceCollection services)
 		{
+			services.AddTransient<IAnalyticsService, AnalyticsService>();
+
 			services.AddTransient<IAnalyticsDA, AnalyticsDA>();
 			services.AddTransient<IAnalyticsEventDA, AnalyticsEventDA>();
 
