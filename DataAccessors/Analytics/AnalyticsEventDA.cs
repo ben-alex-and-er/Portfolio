@@ -59,6 +59,10 @@ namespace Portfolio.DataAccessors.Analytics
 		IQueryable<NameGuidDTO> IRead<NameGuidDTO>.Read()
 			=> context.AnalyticsEvents
 				.AsNoTracking()
-				.Select(eventType => new NameGuidDTO(eventType.Name, eventType.Guid));
+				.Select(eventType => new NameGuidDTO
+				{
+					Name = eventType.Name,
+					Guid = eventType.Guid
+				});
 	}
 }

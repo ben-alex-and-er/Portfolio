@@ -7,6 +7,6 @@
 	/// <summary>
 	/// Data accessor for analytics
 	/// </summary>
-	public interface IAnalyticsDA : ICreate<AnalyticsDTO>
+	public interface IAnalyticsDA : ICreate<AnalyticsDTO>, IRead<AnalyticsDTO>
 	{ }
 }

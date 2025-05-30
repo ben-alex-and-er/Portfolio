@@ -53,5 +53,16 @@ namespace Portfolio.DataAccessors.Analytics
 
 			return true;
 		}
+
+		IQueryable<AnalyticsDTO> IRead<AnalyticsDTO>.Read()
+			=> context.Analytics
+				.AsNoTracking()
+				.Select(entry => new AnalyticsDTO
+				{
+					EventType = entry.Event.Guid,
+					User = entry.User != null ? entry.User.Email : null,
+					Created = entry.Created,
+					MetaData = entry.MetaData
+				});
 	}
 }
