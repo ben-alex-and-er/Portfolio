@@ -38,7 +38,7 @@ internal class Program
 	{
 		var analyticsEventDA = provider.GetRequiredService<IAnalyticsEventDA>();
 
-		// Add checks for checking if exists first
+		// TODO: Add checks for checking if exists first
 		await analyticsEventDA.Create(new NameGuidDTO(nameof(AnalyticsEventTypes.REGISTER), AnalyticsEventTypes.REGISTER));
 		await analyticsEventDA.Create(new NameGuidDTO(nameof(AnalyticsEventTypes.LOGIN), AnalyticsEventTypes.LOGIN));
 	}

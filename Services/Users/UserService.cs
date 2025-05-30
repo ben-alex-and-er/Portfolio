@@ -41,7 +41,7 @@ namespace Portfolio.Services.Users
 				if (!createUser)
 					return false;
 
-				// Could add to more tables
+				// TODO: Add to more tables
 
 
 				var addRegisterAnalytics = await analyticsDA.Create(new AnalyticsDTO(AnalyticsEventTypes.REGISTER, email));

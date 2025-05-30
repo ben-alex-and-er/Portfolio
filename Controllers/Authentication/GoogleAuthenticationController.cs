@@ -52,7 +52,7 @@ namespace Portfolio.Controllers.Authentication
 		[HttpGet("google-response")]
 		public async Task<IActionResult> GoogleResponse()
 		{
-			// Need to add query param to login to display message
+			// TODO: Add query param to login to display message
 
 			var result = await HttpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 
