@@ -4,7 +4,7 @@
 namespace Portfolio.DataAccessors.Users
 {
 	using Configuration.Database;
-	using Configuration.Database.Tables.User;
+	using Configuration.Database.Tables.Users;
 	using DataAccessors.Interfaces;
 	using Interfaces;
 

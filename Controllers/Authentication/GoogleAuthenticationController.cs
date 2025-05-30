@@ -52,18 +52,25 @@ namespace Portfolio.Controllers.Authentication
 		[HttpGet("google-response")]
 		public async Task<IActionResult> GoogleResponse()
 		{
+			// Need to add query param to login to display message
+
 			var result = await HttpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 
 			if (!result.Succeeded)
 				return Redirect("/login");
 
-			// TODO: Use result.Principal to get name, and add claims
+
 			var email = result.Principal.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email)?.Value;
 
 			if (email == null)
 				return Redirect("/login");
 
-			await userService.TryAddUser(email);
+
+			var extenalLogin = await userService.ExternalLogin(email);
+
+			if (!extenalLogin)
+				return Redirect("/login");
+
 
 			return Redirect("/home");
 		}

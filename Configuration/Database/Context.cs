@@ -3,6 +3,7 @@
 
 namespace Portfolio.Configuration.Database
 {
+	using Tables.Analytics;
 	using Tables.Users;
 
 
@@ -16,6 +17,16 @@ namespace Portfolio.Configuration.Database
 		/// </summary>
 		public DbSet<User> Users => Set<User>();
 
+		/// <summary>
+		/// DbSet for <see cref="AnalyticsEvent"/>
+		/// </summary>
+		public DbSet<AnalyticsEvent> AnalyticsEvents => Set<AnalyticsEvent>();
+
+		/// <summary>
+		/// DbSet for <see cref="Analytics"/>
+		/// </summary>
+		public DbSet<Analytics> Analytics => Set<Analytics>();
+
 
 		/// <inheritdoc/>
 		protected override void OnConfiguring(DbContextOptionsBuilder options)
@@ -25,12 +36,29 @@ namespace Portfolio.Configuration.Database
 		/// <inheritdoc/>
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
+			// User
 			modelBuilder.Entity<User>()
 				.HasKey(entry => entry.Id);
 
 			modelBuilder.Entity<User>()
 				.HasIndex(entry => entry.Email)
 				.IsUnique();
+
+
+			// Analytics
+			modelBuilder.Entity<AnalyticsEvent>()
+				.HasKey(entry => entry.Id);
+
+			modelBuilder.Entity<AnalyticsEvent>()
+				.HasIndex(entry => entry.Name)
+				.IsUnique();
+
+			modelBuilder.Entity<AnalyticsEvent>()
+				.HasIndex(entry => entry.Guid)
+				.IsUnique();
+
+			modelBuilder.Entity<Analytics>()
+				.HasKey(entry => entry.Id);
 		}
 	}
 }

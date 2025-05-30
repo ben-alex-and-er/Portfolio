@@ -2,7 +2,11 @@ using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.EntityFrameworkCore;
 using Portfolio.Configuration.Database;
 using Portfolio.Configuration.ServiceSetup;
+using Portfolio.Data.Analytics;
 using Portfolio.Data.Api;
+using Portfolio.Data.Generic;
+using Portfolio.DataAccessors.Analytics;
+using Portfolio.DataAccessors.Analytics.Interfaces;
 using Portfolio.Services.Api;
 using Portfolio.Services.Api.Interfaces;
 
@@ -12,15 +16,31 @@ internal class Program
 	private static void AddServices(IHostApplicationBuilder builder)
 	{
 		builder.Services
+			.AddAnalyticsServices()
 			.AddContextServices()
 			.AddGoogleServices()
 			.AddUserServices();
 
-		builder.Services.BuildServiceProvider().GetRequiredService<Context>().Database.Migrate();
+		var provider = builder.Services.BuildServiceProvider();
+
+		Task.Run(() => AddEventTypes(provider)).Wait();
+
+		provider.GetRequiredService<Context>().Database.Migrate();
+
+
 
 		builder.Services.AddTransient<IApiCallerService, ApiCallerService>();
 
 		builder.Services.AddSingleton<ApiDomain>();
+	}
+
+	private static async Task AddEventTypes(IServiceProvider provider)
+	{
+		var analyticsEventDA = provider.GetRequiredService<IAnalyticsEventDA>();
+
+		// Add checks for checking if exists first
+		await analyticsEventDA.Create(new NameGuidDTO(nameof(AnalyticsEventTypes.REGISTER), AnalyticsEventTypes.REGISTER));
+		await analyticsEventDA.Create(new NameGuidDTO(nameof(AnalyticsEventTypes.LOGIN), AnalyticsEventTypes.LOGIN));
 	}
 
 	private static void Main(string[] args)

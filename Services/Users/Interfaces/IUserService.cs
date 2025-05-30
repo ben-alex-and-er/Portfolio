@@ -10,6 +10,6 @@
 		/// </summary>
 		/// <param name="email"></param>
 		/// <returns></returns>
-		Task<bool> TryAddUser(string email);
+		Task<bool> ExternalLogin(string email);
 	}
 }
