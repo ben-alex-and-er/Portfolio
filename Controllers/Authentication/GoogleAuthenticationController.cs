@@ -2,10 +2,14 @@
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 
 namespace Portfolio.Controllers.Authentication
 {
+	using Services.Users.Interfaces;
+
+
 	/// <summary>
 	/// Controller for using the google OAuth2 Tenant
 	/// </summary>
@@ -13,6 +17,19 @@ namespace Portfolio.Controllers.Authentication
 	public class GoogleAuthenticationController : Controller
 	{
 		private const string CONTROLLER_NAME = "GoogleAuthentication";
+
+
+		private readonly IUserService userService;
+
+
+		/// <summary>
+		/// Constructor for <see cref="GoogleAuthenticationController"/>
+		/// </summary>
+		/// <param name="userService"></param>
+		public GoogleAuthenticationController(IUserService userService)
+		{
+			this.userService = userService;
+		}
 
 
 		/// <summary>
@@ -41,6 +58,12 @@ namespace Portfolio.Controllers.Authentication
 				return Redirect("/login");
 
 			// TODO: Use result.Principal to get name, and add claims
+			var email = result.Principal.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email)?.Value;
+
+			if (email == null)
+				return Redirect("/login");
+
+			await userService.TryAddUser(email);
 
 			return Redirect("/home");
 		}

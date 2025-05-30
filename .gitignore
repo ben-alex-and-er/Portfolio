@@ -35,3 +35,9 @@ ebcli-env/
 aws
 
 publish/
+
+portfolio.db
+
+portfolio.db-shm
+
+portfolio.db-wal
