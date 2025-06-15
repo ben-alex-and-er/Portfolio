@@ -24,9 +24,9 @@ internal class Program
 
 		var provider = builder.Services.BuildServiceProvider();
 
-		Task.Run(() => AddEventTypes(provider)).Wait();
-
 		provider.GetRequiredService<Context>().Database.Migrate();
+
+		Task.Run(() => AddEventTypes(provider)).Wait();
 
 
 
