@@ -1,4 +1,7 @@
-﻿namespace Portfolio.Services.Analytics
+﻿using Microsoft.EntityFrameworkCore;
+
+
+namespace Portfolio.Services.Analytics
 {
 	using Data.Analytics;
 	using DataAccessors.Analytics.Interfaces;
@@ -21,17 +24,80 @@
 		}
 
 
-		// TODO: Optimise and make more generic
-		IQueryable<AnalyticsRecord> IAnalyticsService.GetAnalytics(DateTime from)
-			=> analyticsDA.Read()
+		IReadOnlyList<AnalyticsRecord> IAnalyticsService.GetAnalytics(DateTime from, DateTime to, Func<DateTime, DateTime> timeIncrements, Func<DateTime, long> bucketDesignate)
+		{
+			var bucket = new SortedDictionary<long, AnalyticsRecord>();
+
+			var data = analyticsDA.ReadPure()
 				.Where(entry => entry.Created > from)
-				.GroupBy(entry => entry.Created.Date)
-				.Select(group => new AnalyticsRecord
+				.Where(entry => entry.Created < to)
+				.AsSingleQuery();
+
+			foreach (var entry in data)
+			{
+				var key = bucketDesignate(entry.Created);
+
+				if (!bucket.TryGetValue(key, out var record))
 				{
-					Date = group.Key,
-					Registers = group.Count(entry => entry.EventType == AnalyticsEventTypes.REGISTER),
-					Logins = group.Count(entry => entry.EventType == AnalyticsEventTypes.LOGIN)
-				})
-				.OrderBy(record => record.Date);
+					record = bucket[key] = new AnalyticsRecord
+					{
+						Date = entry.Created
+					};
+				}
+
+				// This ONLY works if the event ID is correct
+				_ = entry.AnalyticsEventId switch
+				{
+					1 => record.Registers++,
+					2 => record.Logins++,
+					_ => 0
+				};
+			}
+
+			return BackfillMissingData(bucket, from, to, timeIncrements, bucketDesignate);
+		}
+
+		async Task<DateTime> IAnalyticsService.GetFirstAnalyticsDate()
+			=> (await analyticsDA.ReadPure()
+				.OrderBy(x => x.Created)
+				.FirstAsync()).Created;
+
+
+		private static IReadOnlyList<AnalyticsRecord> BackfillMissingData(
+			SortedDictionary<long, AnalyticsRecord> bucket,
+			DateTime from,
+			DateTime to,
+			Func<DateTime, DateTime> timeIncrements,
+			Func<DateTime, long> bucketDesignate)
+		{
+			var capacity = 0;
+
+			for (DateTime current = from; current <= to; current = timeIncrements(current))
+			{
+				capacity++;
+			}
+
+			var result = new AnalyticsRecord[capacity];
+
+			var dateTime = from;
+
+			for (int i = 0; i < result.Length; i++)
+			{
+				var key = bucketDesignate(dateTime);
+
+				var record = bucket.TryGetValue(key, out var value)
+					? value
+					: new AnalyticsRecord
+					{
+						Date = dateTime
+					};
+
+				result[i] = record;
+
+				dateTime = timeIncrements(dateTime);
+			}
+
+			return result;
+		}
 	}
 }

@@ -64,5 +64,9 @@ namespace Portfolio.DataAccessors.Analytics
 					Created = entry.Created,
 					MetaData = entry.MetaData
 				});
+
+		IQueryable<Analytics> IAnalyticsDA.ReadPure()
+			=> context.Analytics
+				.AsNoTracking();
 	}
 }
