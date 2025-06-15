@@ -1,5 +1,6 @@
 ﻿:root {
 	--background-color: #ffffff;
+	--background-color-dark: #f9f9f9;
 	--background-color-2: #808080;
 	--background-color-3: #000000;
 	--text-color: #000000;
@@ -64,4 +65,11 @@ nav {
 	padding: 20px;
 	text-align: center;
 	object-fit: cover;
+}
+
+.sidebar {
+	width: 200px;
+	padding: 1rem;
+	border-right: 1px solid var(--background-color-2);
+	background-color: var(--background-color-dark);
 }

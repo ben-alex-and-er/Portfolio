@@ -1,0 +1,36 @@
+﻿@page "/analytics"
+
+
+@using Portfolio.Data.Analytics
+@using Portfolio.Layout
+
+
+@layout MainLayout
+
+
+<Title>Analytics</Title>
+
+
+<div style="display: flex; gap: 1rem">
+	<aside class="sidebar">
+		<h3>Filter</h3>
+		<select @onchange="FromChanged" class="form-select">
+			<option value="@AnalyticsDateFilter.LAST_DAY">Last 24 Hours</option>
+			<option value="@AnalyticsDateFilter.LAST_WEEK">Last Week</option>
+			<option value="@AnalyticsDateFilter.LAST_MONTH">Last Month</option>
+			<option value="@AnalyticsDateFilter.LAST_YEAR">Last Year</option>
+			<option value="@AnalyticsDateFilter.ALL_TIME">All Time</option>
+		</select>
+	</aside>
+
+	<main style="flex-grow: 1">
+		<h3>User Activity</h3>
+		<RadzenChart>
+			@foreach (var series in date)
+			{
+				<RadzenLineSeries Data="@series.Value" CategoryProperty="X" ValueProperty="Y" Title="@series.Key" />
+			}
+			<RadzenCategoryAxis LabelRotation="45" />
+		</RadzenChart>
+	</main>
+</div>
