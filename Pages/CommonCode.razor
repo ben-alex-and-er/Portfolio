@@ -1,0 +1,121 @@
+﻿@page "/projects/commoncode"
+
+
+@using Portfolio.Components.Projects
+@using Portfolio.Layout
+
+
+@layout MainLayout
+
+
+<Title>Common Code</Title>
+
+
+<ProjectSummary Title="Common Code"
+				Role="Creator"
+				Description="A personal library of reusable code for different projects. It includes multiple subprojects that are built into NuGet packages for easy sharing and integration."
+				Year="2025"
+				Genre="Utility"
+				Platform="All" />
+
+
+<hr />
+<h3>Code Explanation</h3>
+<hr />
+
+<div class="grid-2-col" width="100%">
+	<div style="padding: 1rem; height: 35rem; overflow: auto">
+		<h4 style="place-self: center">
+			Sub-Projects:
+		</h4>
+		<label>
+			<p>
+				Common Code includes many different sub-projects. These currenty include:
+			</p>
+
+			<ul>
+				<li>DataAccessors</li>
+				<li>DbCore</li>
+				<li>GateKeeper</li>
+				<li>IOData</li>
+				<li>TestRig</li>
+				<li>TransactionToolkit</li>
+			</ul>
+
+			<p>
+				Each sub-project is seperated so only the required code is imported to external projects. It should be noted that some sub-projects reqiure others to work so have project references.
+			</p>
+		</label>
+	</div>
+	<div style="width: 100%; height: 35rem; display: flex; justify-content: center; align-items: center;">
+		<img src="/images/Common Code/NuGet Packages.png"
+			 style="max-width: 100%; max-height: 100%; object-fit: contain;"
+			 alt="NuGet Packages Diagram" />
+	</div>
+
+	<pre style="background-color: black; color: white; padding: 1rem; height: 35rem;">
+	<code>@nugetDeployCode</code>
+	</pre>
+	<div style="padding: 1rem; height: 35rem; overflow: auto">
+		<h4 style="place-self: center">
+			NuGet Deployment
+		</h4>
+		<label>
+			<p>
+				When new work is pushed to main or a pull request is used, a github pipeline is ran to package and deploy each sub-project to NuGet. This uses the NuGet API token in the environment variables for security.
+			</p>
+
+			<p>
+				This code is the yml file used to pack and publish to NuGet using <code>push-packages.cmd</code>
+			</p>
+
+		</label>
+	</div>
+
+	<div style="padding: 1rem; height: 35rem; overflow: auto">
+		<h4 style="place-self: center">
+			PasswordHasher.cs:
+		</h4>
+		<label>
+			<p>
+				PasswordHasher is a static class in GateKeeper/Cryptography which provides utility for password hashing.
+			</p>
+
+			<p>
+				<code>HashPassword()</code> allows the developer to convert a string password into a <code>HashedPassword</code>, whilst also allowing them to specify:
+			</p>
+			<ul>
+				<li>Hashing Algorithmn</li>
+				<li>Salt Length</li>
+				<li>Hash Length</li>
+				<li>Total number of hashing iterations</li>
+			</ul>
+
+			<p>
+				<code>VerifyPassword()</code> allows a developer to check whether a string password matches a <code>HashedPassword</code>. Since the salt is randomized each time, a string comparison would not work. This would typically be used to verify that the password a user has entered matches the hashed password in the database.
+			</p>
+		</label>
+	</div>
+	<pre style="background-color: black; color: white; padding: 1rem; height: 35rem;">
+	<code>@passwordHasherCode</code>
+	</pre>
+
+	<pre style="background-color: black; color: white; padding: 1rem;  height: 35rem;">
+	<code>@sonarCodeCoverageCode</code>
+	</pre>
+	<div style="padding: 1rem; height: 35rem; overflow: auto">
+		<h4 style="place-self: center">
+			Testing:
+		</h4>
+		<label>
+			<p>
+				All code in this project has been thoroughly tested as it will be used in multiple projects. To achieve this I have added a sonar cloud code coverage pipeline to ensure all code is covered appropriately, and there are no security vulnerabilities.
+			</p>
+
+			<p>
+				This mainly uses the initial setup provided by SonarQube, but also contains my own coverage exclusions and Sonar Scanner secret token which is stored in environment variables on the repository.
+			</p>
+
+		</label>
+	</div>
+</div>
