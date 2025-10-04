@@ -24,7 +24,11 @@ namespace Portfolio.Services.Analytics
 		}
 
 
-		IReadOnlyList<AnalyticsRecord> IAnalyticsService.GetAnalytics(DateTime from, DateTime to, Func<DateTime, DateTime> timeIncrements, Func<DateTime, long> bucketDesignate)
+		IReadOnlyList<AnalyticsRecord> IAnalyticsService.GetAnalytics(
+			DateTime from,
+			DateTime to,
+			Func<DateTime, DateTime> timeIncrements,
+			Func<DateTime, long> bucketDesignate)
 		{
 			var bucket = new SortedDictionary<long, AnalyticsRecord>();
 
