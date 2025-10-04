@@ -1,6 +1,7 @@
 ﻿@page "/projects/portfolio"
 
 
+@using Portfolio.Components.Projects
 @using Portfolio.Layout
 
 
@@ -10,4 +11,80 @@
 <Title>Portfolio Website</Title>
 
 
-<h1>Portfolio Website</h1>
+<ProjectSummary Title="Portfolio Website"
+				Role="Creator"
+				Description="This website is a Blazor application used to present my coding abilities to employers like yourself."
+				Year="2025"
+				Genre="Informational"
+				Platform="Web"/>
+
+
+<hr />
+<h3>Code Explanation</h3>
+<hr />
+
+<div class="grid-2-col" width="100%">
+	<div style="padding: 1rem; height: 35rem; overflow: auto">
+		<h4 style="place-self: center">
+			AWS
+		</h4>
+		<label>
+			<p>
+				This website is hosted on an AWS EC2 instance. I set this up from scratch as well as setting up a https link using nginx.
+			</p>
+
+			<p>
+				To deploy this website, I publish this project using Visual Studio to the ubuntu instance using command line.
+				I then ssh into the instance and end the process, and replace it with the new published instance.
+			</p>
+
+			<p>
+				I would ideally like to automate this process in the future to make a script that automatically does this - probably using a pipeline.
+			</p>
+		</label>
+	</div>
+	<img src="/images/This Website/AWS.png"
+		 style="max-width: 100%; max-height: 100%; object-fit: cover;" />
+
+	<img src="/images/This Website/Login.png" height="100%" width="100%" />
+	<div style="padding: 1rem; height: 35rem; overflow: auto">
+		<h4 style="place-self: center">
+			Login
+		</h4>
+		<label>
+			<p>
+				I have decided to use Google's OAuth 2.0 system for logins to my portfolio. This allowed me to skip handling my own logins for now, and let users login/register quickly and easily.
+			</p>
+
+			<p>
+				When a user logs in using Google, I validate the user's claims principal and use it for when required (for example showing their name on the home screen). I also store the user's session cookie so they can do not have to log in when they load each page. If a user attempts to access a page without a valid session cookie, they will be redirected to the login screen.
+			</p>
+
+			<p>
+				I would also like to add a login ability in the future without Google, so that user's do not have to have a Google account to log in.
+			</p>
+		</label>
+	</div>
+
+	<div style="padding: 1rem; height: 35rem; overflow: auto">
+		<h4 style="place-self: center">
+			Analytics
+		</h4>
+		<label>
+			<p>
+				I have also added analytics tracking to my portfolio. You will notice the 'Analytics' page which displays these.
+			</p>
+
+			<p>
+				Analytics events are currently only logged when a user registers or logs in to this website. These events are stored in a local database using a .db file, EntityFramework and a code-first db approach.
+			</p>
+
+			<p>
+				Analytics are displayed using 'Radzen.Blazor'. This is a package to help display information in chart form. I have ensured the data retrieval is efficient so that it will be near instant even for many analytics events.
+			</p>
+		</label>
+	</div>
+	<pre style="background-color: black; color: white; padding: 1rem; height: 35rem;">
+		<code>@analyticsServiceCode</code>
+	</pre>
+</div>

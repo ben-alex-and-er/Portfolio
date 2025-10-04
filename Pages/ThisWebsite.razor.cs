@@ -1,0 +1,10 @@
+namespace Portfolio.Pages
+{
+	/// <summary>
+	/// Represents a This Website object
+	/// </summary>
+	public partial class ThisWebsite
+	{
+		private const string analyticsServiceCode = "IReadOnlyList<AnalyticsRecord> IAnalyticsService.GetAnalytics(\r\n\tDateTime from,\r\n\tDateTime to,\r\n\tFunc<DateTime, DateTime> timeIncrements,\r\n\tFunc<DateTime, long> bucketDesignate)\r\n{\r\n\tvar bucket = new SortedDictionary<long, AnalyticsRecord>();\r\n\r\n\tvar data = analyticsDA.ReadPure()\r\n\t\t.Where(entry => entry.Created > from)\r\n\t\t.Where(entry => entry.Created < to)\r\n\t\t.AsSingleQuery();\r\n\r\n\tforeach (var entry in data)\r\n\t{\r\n\t\tvar key = bucketDesignate(entry.Created);\r\n\r\n\t\tif (!bucket.TryGetValue(key, out var record))\r\n\t\t{\r\n\t\t\trecord = bucket[key] = new AnalyticsRecord\r\n\t\t\t{\r\n\t\t\t\tDate = entry.Created\r\n\t\t\t};\r\n\t\t}\r\n\r\n\t\t_ = entry.Event.Guid.ToString() switch\r\n\t\t{\r\n\t\t\tAnalyticsEventTypes.REGISTER_STRING => record.Registers++,\r\n\t\t\tAnalyticsEventTypes.LOGIN_STRING => record.Logins++,\r\n\t\t\t_ => 0\r\n\t\t};\r\n\t}\r\n\r\n\treturn BackfillMissingData(bucket, from, to, timeIncrements, bucketDesignate);\r\n}\r\n\r\n\r\nprivate static IReadOnlyList<AnalyticsRecord> BackfillMissingData(\r\n\tSortedDictionary<long, AnalyticsRecord> bucket,\r\n\tDateTime from,\r\n\tDateTime to,\r\n\tFunc<DateTime, DateTime> timeIncrements,\r\n\tFunc<DateTime, long> bucketDesignate)\r\n{\r\n\tvar capacity = 0;\r\n\r\n\tfor (DateTime current = from; current <= to; current = timeIncrements(current))\r\n\t{\r\n\t\tcapacity++;\r\n\t}\r\n\r\n\tvar result = new AnalyticsRecord[capacity];\r\n\r\n\tvar dateTime = from;\r\n\r\n\tfor (int i = 0; i < result.Length; i++)\r\n\t{\r\n\t\tvar key = bucketDesignate(dateTime);\r\n\r\n\t\tvar record = bucket.TryGetValue(key, out var value)\r\n\t\t\t? value\r\n\t\t\t: new AnalyticsRecord\r\n\t\t\t{\r\n\t\t\t\tDate = dateTime\r\n\t\t\t};\r\n\r\n\t\tresult[i] = record;\r\n\r\n\t\tdateTime = timeIncrements(dateTime);\r\n\t}\r\n\r\n\treturn result;\r\n}";
+	}
+}

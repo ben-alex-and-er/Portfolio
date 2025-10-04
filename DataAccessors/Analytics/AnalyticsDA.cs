@@ -67,6 +67,7 @@ namespace Portfolio.DataAccessors.Analytics
 
 		IQueryable<Analytics> IAnalyticsDA.ReadPure()
 			=> context.Analytics
+				.Include(x => x.Event)
 				.AsNoTracking();
 	}
 }
