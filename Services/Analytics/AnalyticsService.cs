@@ -45,11 +45,10 @@ namespace Portfolio.Services.Analytics
 					};
 				}
 
-				// This ONLY works if the event ID is correct
-				_ = entry.AnalyticsEventId switch
+				_ = entry.Event.Guid.ToString() switch
 				{
-					1 => record.Registers++,
-					2 => record.Logins++,
+					AnalyticsEventTypes.REGISTER_STRING => record.Registers++,
+					AnalyticsEventTypes.LOGIN_STRING => record.Logins++,
 					_ => 0
 				};
 			}
