@@ -1,54 +1,46 @@
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.HttpOverrides;
-using Portfolio.Configuration.Google;
+using Microsoft.EntityFrameworkCore;
+using Portfolio.Configuration.Database;
+using Portfolio.Configuration.ServiceSetup;
+using Portfolio.Data.Analytics;
 using Portfolio.Data.Api;
+using Portfolio.Data.Generic;
+using Portfolio.DataAccessors.Analytics.Extensions;
+using Portfolio.DataAccessors.Analytics.Interfaces;
 using Portfolio.Services.Api;
 using Portfolio.Services.Api.Interfaces;
+using Radzen;
 
 
 internal class Program
 {
 	private static void AddServices(IHostApplicationBuilder builder)
 	{
+		builder.Services
+			.AddAnalyticsServices()
+			.AddContextServices()
+			.AddGoogleServices()
+			.AddUserServices();
+
+		var provider = builder.Services.BuildServiceProvider();
+
+		provider.GetRequiredService<Context>().Database.Migrate();
+
+		Task.Run(() => AddEventTypes(provider)).Wait();
+
+
+
 		builder.Services.AddTransient<IApiCallerService, ApiCallerService>();
 
 		builder.Services.AddSingleton<ApiDomain>();
+	}
 
-		builder.Services.AddSingleton<GoogleClientCredentials>();
+	private static async Task AddEventTypes(IServiceProvider provider)
+	{
+		var analyticsEventDA = provider.GetRequiredService<IAnalyticsEventDA>();
 
-		builder.Services.Configure<CookiePolicyOptions>(options =>
-		{
-			// Allow cross-site requests
-			options.MinimumSameSitePolicy = SameSiteMode.Lax;
-		});
-
-		var googleCredentials = builder.Services.BuildServiceProvider()
-			.GetRequiredService<GoogleClientCredentials>();
-
-		builder.Services.AddAuthentication(options =>
-		{
-			options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-			options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
-		})
-		.AddCookie(options =>
-		{
-			options.Cookie.SameSite = SameSiteMode.Lax;
-		})
-		.AddGoogle(options =>
-		{
-			options.ClientId = googleCredentials.Id;
-			options.ClientSecret = googleCredentials.Secret;
-			options.CallbackPath = googleCredentials.CallbackPath;
-
-			options.Events.OnRemoteFailure = context =>
-			{
-				Console.WriteLine($"Google authentication failed: {context.Failure?.Message}");
-				context.Response.Redirect("/");
-				context.HandleResponse();
-				return Task.CompletedTask;
-			};
-		});
+		await analyticsEventDA.CreateEventTypeOrThrow(new NameGuidDTO(nameof(AnalyticsEventTypes.REGISTER), AnalyticsEventTypes.REGISTER));
+		await analyticsEventDA.CreateEventTypeOrThrow(new NameGuidDTO(nameof(AnalyticsEventTypes.LOGIN), AnalyticsEventTypes.LOGIN));
 	}
 
 	private static void Main(string[] args)
@@ -65,6 +57,7 @@ internal class Program
 
 		builder.Services.AddRazorPages();
 		builder.Services.AddServerSideBlazor();
+		builder.Services.AddRadzenComponents();
 
 
 		var app = builder.Build();
