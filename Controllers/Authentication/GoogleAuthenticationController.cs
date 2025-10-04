@@ -57,19 +57,19 @@ namespace Portfolio.Controllers.Authentication
 			var result = await HttpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 
 			if (!result.Succeeded)
-				return Redirect("/login");
+				return BackToLogin();
 
 
 			var email = result.Principal.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email)?.Value;
 
 			if (email == null)
-				return Redirect("/login");
+				return BackToLogin();
 
 
 			var extenalLogin = await userService.ExternalLogin(email);
 
 			if (!extenalLogin)
-				return Redirect("/login");
+				return BackToLogin();
 
 
 			return Redirect("/home");
@@ -84,7 +84,11 @@ namespace Portfolio.Controllers.Authentication
 		{
 			await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 
-			return Redirect("/login");
+			return BackToLogin();
 		}
+
+
+		private RedirectResult BackToLogin()
+			=> Redirect("/login");
 	}
 }

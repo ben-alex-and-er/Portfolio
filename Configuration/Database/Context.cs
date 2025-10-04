@@ -29,8 +29,8 @@ namespace Portfolio.Configuration.Database
 
 
 		/// <inheritdoc/>
-		protected override void OnConfiguring(DbContextOptionsBuilder options)
-			=> options.UseSqlite($"Data Source=portfolio.db");
+		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+			=> optionsBuilder.UseSqlite($"Data Source=portfolio.db");
 
 
 		/// <inheritdoc/>
