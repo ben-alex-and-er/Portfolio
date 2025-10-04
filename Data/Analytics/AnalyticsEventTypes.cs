@@ -19,11 +19,16 @@
 		/// <summary>
 		/// Guid for the event where a new user registers (does not include the new user login)
 		/// </summary>
-		public static Guid REGISTER = new(REGISTER_STRING);
+		public static Guid REGISTER => registerGuid;
 
 		/// <summary>
 		/// Guid for the event where a user logs in
 		/// </summary>
-		public static Guid LOGIN = new(LOGIN_STRING);
+		public static Guid LOGIN => loginGuid;
+
+
+		private static readonly Guid registerGuid = new(REGISTER_STRING);
+
+		private static readonly Guid loginGuid = new(LOGIN_STRING);
 	}
 }
