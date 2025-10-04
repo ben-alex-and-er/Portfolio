@@ -1,0 +1,94 @@
+﻿@page "/projects/rankedapi"
+
+
+@using Portfolio.Components.Projects
+@using Portfolio.Layout
+
+
+@layout MainLayout
+
+
+<Title>Ranked API (Elo)</Title>
+
+
+<ProjectSummary Title="Ranked API"
+				Role="Creator"
+				Description="This is an API designed to allow different applications to enter their users, and set initial elo scores. Matches are entered and elo scores are updated and stored."
+				Year="2025"
+				Genre="Backend"
+				Platform="Server"/>
+
+
+<hr />
+<h3>Code Explanation</h3>
+<hr />
+
+<div class="grid-2-col" width="100%">
+	<div style="padding: 1rem; height: 35rem; overflow: auto">
+		<h4 style="place-self: center">
+			OAuth
+		</h4>
+		<label>
+			<p>
+				This API uses OAuth for authorization purposes. If the application calling the API does not have an access token, it can request one using a subject and password. A token is returned for the user's role.'
+			</p>
+
+			<p>
+				This token can then be used to access each endpoint. Different endpoints require different levels of auth - which are given to different roles.
+			</p>
+
+			<p>
+				Currently the roles and claims for each role is hardcoded, but I want to make them run on the database so that a roles claims can be edited easily without needing a redeploy.
+			</p>
+		</label>
+	</div>
+	<img src="/images/Ranked API/Security.png" height="100%" width="100%" />
+
+	<pre style="background-color: black; color: white; padding: 1rem; height: 35rem;">
+		<code>@userServiceCode</code>
+	</pre>
+	<div style="padding: 1rem; height: 35rem; overflow: auto">
+		<h4 style="place-self: center">
+			Controller-Service-Repository Pattern
+		</h4>
+		<label>
+			<p>
+				This API uses the Controller-Service-Repository pattern. This was chosen as a nice way to seperate different concerns and allows each section to be changed and tested easily.
+			</p>
+
+			<p>
+				The Controllers all contain only the endpoints along with their auth level. These only call the service layer.
+			</p>
+
+			<p>
+				The Services contain all the business logic of the API endpoints. This means all the arranging of data, validation checks, and calls to manipulate data happens here. Transactions are used here to ensure that the database stays in a safe state at all time to honour ACID principles.
+			</p>
+
+			<p>
+				The Data Access Layers are used to interact solely with the database. Services should call the DA methods to retrieve and change data - only the DA should touch the DB (apart from transactions).
+			</p>
+
+			<p>
+				Here is a service layer method for creating a new user.
+			</p>
+		</label>
+	</div>
+
+	<div style="padding: 1rem; height: 35rem; overflow: auto">
+		<h4 style="place-self: center">
+			SQL Database:
+		</h4>
+		<label>
+			<p>
+				This API connects to a MySQL database using Entity Framework. For each database table, I have created a MySQL script to run. These are ran locally on my machine, and scaffolded to the project to use with EF.
+			</p>
+
+			<p>
+				One task of this project was to migrate all users to a "Global" application to allow new applications to be used. This meant that each user-application combination required an elo ranking rather than each user. I had to ensure that the data was migrated successfully and securely without loss of data.
+			</p>
+		</label>
+	</div>
+	<pre style="background-color: black; color: white; padding: 1rem; height: 35rem;">
+		<code>@sqlCode</code>
+	</pre>
+</div>
