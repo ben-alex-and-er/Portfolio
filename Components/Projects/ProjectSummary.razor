@@ -1,0 +1,41 @@
+﻿<h1>@Title</h1>
+
+<hr />
+
+<div class="grid-2-col-with-line" style="height:250px">
+	<div style="display: flex;flex-direction: column;justify-content: space-around;">
+		<div>
+			<h2>Role</h2>
+			<label>@Role</label>
+		</div>
+
+		<div>
+			<h2>Description</h2>
+			<label>@Description</label>
+		</div>
+	</div>
+
+	<div class="vertical-line"></div>
+
+	<div style="display: flex;flex-direction: column;justify-content: space-around;">
+		<div>
+			<h2>Year</h2>
+			<label>@Year</label>
+		</div>
+
+		<div>
+			<h2>Genre</h2>
+			<label>@Genre</label>
+		</div>
+
+		<div>
+			<h2>Platform</h2>
+			<label>@Platform</label>
+		</div>
+
+		@if (GitHubURL != null)
+		{
+			<a href="@GitHubURL">GITHUB</a>
+		}
+	</div>
+</div>
