@@ -1,4 +1,4 @@
-﻿:root {
+:root {
 	--background-color: #ffffff;
 	--background-color-dark: #f9f9f9;
 	--background-color-2: #808080;
@@ -52,19 +52,43 @@ nav {
 		text-decoration: none;
 	}
 
+.text-indent-wrap {
+	text-indent: -1.5em;
+	padding-left: 1.5em;
+}
 
 .grid-2-col {
 	display: grid;
-	grid-template-columns: repeat(2, 1fr);
+	grid-template-columns: 1fr 1fr;
 	justify-items: stretch;
+	justify-content: center;
 	align-items: stretch;
 }
 
+@media (max-width: 768px) {
+	.grid-2-col {
+		grid-template-columns: 1fr;
+	}
+}
+
+img.grid-item {
+	max-width: 100%;
+	height: auto;
+}
+
 .grid-item {
-	border: 1px solid black;
 	padding: 20px;
 	text-align: center;
 	object-fit: cover;
+}
+
+	.grid-item:hover {
+		border: 1px solid black;
+	}
+
+.grid-item-link {
+	text-decoration: none;
+	color: inherit;
 }
 
 .sidebar {
