@@ -3,7 +3,7 @@
 	/// <summary>
 	/// Constants for use in YouTube Embeds
 	/// </summary>
-	public class YouTubeEmbedConsts
+	public static class YouTubeEmbedConsts
 	{
 		/// <summary>
 		/// Embed hash for Cave Diver
