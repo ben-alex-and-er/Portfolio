@@ -31,12 +31,32 @@ footer {
 	display: flex;
 	flex-direction: column;
 	justify-self: center;
-	height: 50%;
-	width: 50%;
-	padding: 10px;
+	padding: 2.5rem;
 	border: 2px solid black;
-	border-radius: 10px;
+	border-radius: 12px;
+	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+	text-align: center;
+	width: 100%;
+	max-width: 360px;
+	height: auto;
 }
+
+	.login-box h1 {
+		font-size: 1.8rem;
+		margin-bottom: 0.5rem;
+		color: #333;
+	}
+
+	.login-box p {
+		margin-top: 1.5rem;
+		margin-bottom: 0;
+		color: #666;
+		font-size: 0.75rem;
+	}
+
+	.login-box label {
+		margin-bottom: 1.5rem;
+	}
 
 nav {
 	display: flex;
