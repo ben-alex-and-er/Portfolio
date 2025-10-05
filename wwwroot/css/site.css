@@ -201,6 +201,7 @@ nav {
 .btn-primary {
 	background-color: var(--background-color-3);
 	color: var(--flair-color);
+	border-color: transparent !important;
 }
 
 	.btn-primary:hover {
@@ -210,6 +211,7 @@ nav {
 .btn-secondary {
 	background-color: var(--background-color-3);
 	color: var(--flair-color-2);
+	border-color: transparent !important;
 }
 
 	.btn-secondary:hover {
