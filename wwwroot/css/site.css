@@ -163,6 +163,14 @@ nav {
 	padding: 1rem;
 	border-right: 1px solid var(--background-color-2);
 	background-color: var(--background-color-dark);
+	height: -webkit-fill-available;
+}
+
+@media (max-width: 768px) {
+	.sidebar {
+		border-right: none;
+		border-bottom: 1px solid var(--background-color-2);
+	}
 }
 
 
@@ -279,3 +287,28 @@ nav {
 		background-color: #333;
 		color: white;
 	}
+
+.analytics-layout {
+	display: flex;
+	gap: 1rem;
+	align-items: flex-start;
+}
+
+	.analytics-layout .sidebar {
+		width: 250px;
+	}
+
+	.analytics-layout main {
+		flex-grow: 1;
+	}
+
+@media (max-width: 768px) {
+	.analytics-layout {
+		flex-direction: column;
+	}
+
+		.analytics-layout .sidebar {
+			width: 100%;
+			order: -1;
+		}
+}
