@@ -24,8 +24,16 @@ footer {
 }
 
 .pad-sides {
-	padding: 0 20%;
+	padding: 0 15%;
+	transition: padding 0.3s ease;
 }
+
+@media (max-width: 768px) {
+	.pad-sides {
+		padding: 0 5%;
+	}
+}
+
 
 .login-box {
 	display: flex;
