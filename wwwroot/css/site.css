@@ -11,6 +11,9 @@
 }
 
 footer {
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	text-align: center;
 	color: var(--text-color-3);
 	background-color: var(--background-color-3);
