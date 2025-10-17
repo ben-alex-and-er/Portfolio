@@ -1,4 +1,8 @@
-﻿namespace Portfolio.Configuration.ServiceSetup
+﻿using TransactionToolkit;
+using TransactionToolkit.Interfaces;
+
+
+namespace Portfolio.Configuration.ServiceSetup
 {
 	using Database;
 
@@ -13,6 +17,8 @@
 		public static IServiceCollection AddContextServices(this IServiceCollection services)
 		{
 			services.AddDbContext<Context>();
+
+			services.AddTransient<ITransactionCreator, TransactionCreator<Context>>();
 
 			return services;
 		}
