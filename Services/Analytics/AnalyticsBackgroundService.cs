@@ -10,7 +10,7 @@ namespace Portfolio.Services.Analytics
 	/// <summary>
 	/// Background service for filling psuedo analytics
 	/// </summary>
-	public class AnalyticsBackgroundService : BackgroundService, IDisposable
+	public class AnalyticsBackgroundService : BackgroundService
 	{
 		private readonly IServiceScope serviceScope;
 
