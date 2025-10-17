@@ -1,4 +1,4 @@
-using TransactionToolkit.Interfaces;
+﻿using TransactionToolkit.Interfaces;
 
 
 namespace Portfolio.Services.Analytics
@@ -48,21 +48,21 @@ namespace Portfolio.Services.Analytics
 
 
 		/// <inheritdoc/>
-		protected override async Task ExecuteAsync(CancellationToken cancellationToken)
+		protected override async Task ExecuteAsync(CancellationToken stoppingToken)
 		{
-			while (!cancellationToken.IsCancellationRequested)
+			while (!stoppingToken.IsCancellationRequested)
 			{
-				await RecordAnalytics(cancellationToken);
+				await RecordAnalytics(stoppingToken);
 
 				var delay = TimeSpan.FromMinutes(MinutesDelay());
-				await Task.Delay(delay, cancellationToken);
+				await Task.Delay(delay, stoppingToken);
 			}
 		}
 
 
-		private async Task RecordAnalytics(CancellationToken cancellationToken)
+		private async Task RecordAnalytics(CancellationToken stoppingToken)
 		{
-			while (!cancellationToken.IsCancellationRequested)
+			while (!stoppingToken.IsCancellationRequested)
 			{
 				try
 				{
@@ -92,7 +92,7 @@ namespace Portfolio.Services.Analytics
 						}
 					}
 
-					await transaction.CommitAsync(cancellationToken);
+					await transaction.CommitAsync(stoppingToken);
 
 					return;
 				}
@@ -100,7 +100,7 @@ namespace Portfolio.Services.Analytics
 				{
 					// Log error and retry
 					logger.LogError(ex, "Background service task failed");
-					await Task.Delay(TimeSpan.FromSeconds(1), cancellationToken);
+					await Task.Delay(TimeSpan.FromSeconds(1), stoppingToken);
 				}
 			}
 		}
