@@ -11,7 +11,7 @@
 <Title>Analytics</Title>
 
 
-<div style="display: flex; gap: 1rem">
+<div class="analytics-layout">
 	<aside class="sidebar">
 		<h3>Filter</h3>
 		<select @onchange="FromChanged" class="form-select">
@@ -23,7 +23,7 @@
 		</select>
 	</aside>
 
-	<main style="flex-grow: 1">
+	<main>
 		<h3>User Activity</h3>
 		<RadzenChart>
 			@foreach (var series in date)
