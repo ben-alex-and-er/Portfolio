@@ -40,8 +40,12 @@ namespace Portfolio.Services.Analytics
 			analyticsDA = serviceScope.ServiceProvider.GetRequiredService<IAnalyticsDA>();
 		}
 
-		void IDisposable.Dispose()
+
+		/// <inheritdoc/>
+		public override void Dispose()
 		{
+			base.Dispose();
+
 			serviceScope.Dispose();
 			GC.SuppressFinalize(this);
 		}
