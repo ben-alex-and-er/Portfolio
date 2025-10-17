@@ -1,4 +1,4 @@
-﻿using TransactionToolkit.Interfaces;
+using TransactionToolkit.Interfaces;
 
 
 namespace Portfolio.Services.Analytics
@@ -43,6 +43,7 @@ namespace Portfolio.Services.Analytics
 		void IDisposable.Dispose()
 		{
 			serviceScope.Dispose();
+			GC.SuppressFinalize(this);
 		}
 
 
