@@ -1,0 +1,152 @@
+﻿@page "/projects/orbitalphysicssimulator"
+
+
+@using Portfolio.Components.Media
+@using Portfolio.Components.Projects
+@using Portfolio.Data.Media
+@using Portfolio.Layout
+
+
+@layout MainLayout
+
+
+<Title>Orbital Physics Simulator</Title>
+
+
+<ProjectSummary Title="Orbital Physics Simulator"
+				Role="Creator"
+				Description="As part of my BSc Computer Science degree at the University of Southampton, I have decided to make a project based around teaching physics students about orbital physics by creating a learning sandbox simulator. This is entirely coded in Unity, and has contains my own mini-physics engine for the gravity mechanics."
+				Year="2022 - 2023"
+				Genre="Education"
+				Platform="WebGL, Executable" />
+
+<hr />
+
+<ProjectImages Images="@images" />
+
+<hr />
+<h3>Video Explanation</h3>
+<hr />
+<YouTubeEmbed VideoHash="@YouTubeEmbedConsts.ORBITAL_PHYSICS_SIMULATOR" />
+
+<hr />
+<h3>Play Game</h3>
+<hr />
+<ItchEmbed EmbedSource="https://itch.io/embed-upload/9384668"
+		   ItchUrl="https://benalexa.itch.io/orbital-physics-simulator" />
+
+<hr />
+<h3>Code Explanation</h3>
+<hr />
+
+<div class="grid-2-col" width="100%">
+	<div style="padding: 1rem; height: 35rem; overflow: auto">
+		<h4 style="place-self: center">
+			Octopus.cs:
+		</h4>
+		<label>
+			<p>
+				An octopus is an enemy type in the game. There are 3 main enemy types (not including the final boss), each with their own looks, animations, and movements:
+			</p>
+
+			<ul>
+				<li>Crab</li>
+				<li>Jumper</li>
+				<li>Octopus</li>
+			</ul>
+
+			<p>
+				The crabs go left and right horizontally, the jumpers jump up and down, and the octopuses travel in circles (and only appear in the underwater section).
+			</p>
+
+			<p>
+				All these enemies use <code>sin</code> and <code>cos</code> to make smooth movements. The octopus and crab scripts use the <code>Character.Flip()</code> method,
+				which is called whenever the movement flips direction, with help from the <code>Character.facingRight</code> boolean.
+			</p>
+		</label>
+	</div>
+	<pre style="background-color: black; color: white; padding: 1rem; height: 35rem">
+		<code>@octopusCode</code>
+	</pre>
+
+	<img src="/images/Cave Diver/Paths.png" height="100%" width="100%" />
+	<div style="padding: 1rem; height: 35rem; overflow: auto">
+		<h4 style="place-self: center">
+			Multiple Routes:
+		</h4>
+		<label>
+			<p>
+				This game was part of a coursework, with the marks mainly aimed at making a game with multiple branching pathways, and with the gameplay affecting the story in different ways.
+			</p>
+
+			<p>
+				For example, in this scenario the player has just made the choice between having:
+				<ul>
+					<li>Double Jump</li>
+					<li>Rocket shot</li>
+				</ul>
+			</p>
+
+			<p>
+				If the player chooses the double jump, they can jump up onto the platforms and progress up and further into the level. This route is not accessible if the user does not have the double jump ability.
+			</p>
+
+			<p>
+				If the player chooses the rocket shot, they can shoot the tunnel door (bottom right) with it. This can only be destroyed if the player has the rocket shot, and normal bullets do not break it.
+			</p>
+
+			<p>
+				Also, after each choice, the final boss takes the ability that the player didn't choose. This allows for a more diverse gameplay and variation in the boss fight. The player ALSO has the opportunity to attack the boss when he takes the other option, and that leads to more branching paths.
+			</p>
+
+		</label>
+	</div>
+
+	<div style="padding: 1rem; height: 35rem; overflow: auto">
+		<h4 style="place-self: center">
+			CameraChanger.cs:
+		</h4>
+		<label>
+			<p>
+				The Camera Changer is a standalone script, which is connected to 'trigger' objects. This is so that when the player is inside one of these 'trigger' objects, the camera changes from the main camera to a different camera (newCam). This new camera is normally set up to follow the player and another object, so that whilst in the 'trigger' object, the user can always see the object of importance, even if it would be out of view normally.
+			</p>
+
+			<p>
+				This is used in tandem with CineMachine, to create smooth effects and camera transitions.
+			</p>
+		</label>
+	</div>
+	<pre style="background-color: black; color: white; padding: 1rem; height: 35rem;">
+		<code>@cameraChangerCode</code>
+	</pre>
+
+	<pre style="background-color: black; color: white; padding: 1rem;  height: 35rem;">
+		<code>@characterCode</code>
+	</pre>
+	<div style="padding: 1rem; height: 35rem; overflow: auto">
+		<h4 style="place-self: center">
+			Character.cs:
+		</h4>
+		<label>
+			<p>
+				The Character class is the main parent class of all the Character objects in the game. All enemies are instances of the Character class, and the player and boss are too. The Character class contains all the information for:
+				<ul>
+					<li>Max Health</li>
+					<li>Current Health</li>
+					<li>Alive</li>
+					<li>Healthbar</li>
+					<li>Direction the character is facing</li>
+				</ul>
+			</p>
+
+			<p>
+				Currently, heal is only used for the Player, but I have implemented it into the Character class so all enemies have the ability too, in case I come back to this project later on.
+			</p>
+
+			<p>
+				Each Character also has their own healthbar that floats above their head, which goes from green to red depending on the health amount, and doesn't appear until they are hit at least once. However, the Player healthbar is slightly different as the canvas used is the main UI instead, and shows on start.
+			</p>
+
+		</label>
+	</div>
+</div>
