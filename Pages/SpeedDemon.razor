@@ -1,0 +1,136 @@
+﻿@page "/projects/speeddemon"
+
+
+@using Portfolio.Components.Media
+@using Portfolio.Components.Projects
+@using Portfolio.Data.Media
+@using Portfolio.Layout
+
+
+@layout MainLayout
+
+
+<Title>Speed Demon</Title>
+
+
+<ProjectSummary Title="Speed Demon"
+				Role="Co-Creator"
+				Description="This game was created as part of my course at the University of Southampton. We were tasked to work with a partner to create a tutorial level of a game, within 4 weeks, alongside other university work."
+				Year="2022"
+				Genre="Action"
+				Platform="WebGL"/>
+
+<hr />
+
+<ProjectImages Images="@images" />
+
+<hr />
+<h3>Video Explanation</h3>
+<hr />
+<YouTubeEmbed VideoHash="@YouTubeEmbedConsts.SPEED_DEMON" />
+
+<hr />
+<h3>Play Game</h3>
+<hr />
+<ItchEmbed EmbedSource="https://itch.io/embed-upload/6891219"
+		   ItchUrl="https://benalexa.itch.io/speed-demon" />
+
+<hr />
+<h3>Code Explanation</h3>
+<hr />
+
+<div class="grid-2-col" width="100%">
+	<div style="padding: 1rem; height: 35rem; overflow: auto">
+		<h4 style="place-self: center">
+			BulletSpawner.cs:
+		</h4>
+		<label>
+			<p>
+				There are many BulletSpawner objects in the game. As the name suggests, these spawn in bullets that fire constantly (unless the game is finished, or the player uses an EMP).
+			</p>
+
+			<p>
+				BulletSpawners use prefab pooling to reduce lag (the game is very resource heavy and there are alot of bullets). To achieve this, bullets are made inactive and are teleported to the spawner to be reactivated, as opposed to destroying bullets every time they hit walls. This massively reduced the lag on the game.
+			</p>
+
+			<p>
+				Bulletspawners have the capabilties of moving left, right, up, down, and have full rotation, allowing them to move in any configuration you want.
+			</p>
+
+			<p>
+				They also have the ability to lock onto a target, and can move around but the rotation will stay focussed on the target (normally the player). This is another added layer of customization and difficulty to the game.
+			</p>
+		</label>
+	</div>
+	<pre style="background-color: black; color: white; padding: 1rem; height: 35rem">
+		<code>@bulletSpawnerCode</code>
+	</pre>
+
+	<img src="/images/Speed Demon/Map.png" height="100%" width="100%" />
+	<div style="padding: 1rem; height: 35rem; overflow: auto">
+		<h4 style="place-self: center">
+			Performance
+		</h4>
+		<label>
+			<p>
+				This game had a VERY big performance issue when it was first created. Frames would drop to as low as 6fps EVEN WITH prefab pooling. I made specific changes to what is loaded in, and when, to significantly reduce lag, and increase performance to an average of 200fps.
+			</p>
+
+			<p>
+				I started off by turning off BulletSpawners by default. I then had to make a door for each room, and when the player passes through it, it turns the BulletSpawners of that room on, and when the player goes back out, the BulletSpawners of that room turn off. This is done in every room with spawners, and each door has two colliders (and enter and exit) so that players cannot trigger it without entering the room and causing the lag to continue (or to stop the spawners from firing).
+			</p>
+
+			<p>
+				Another way of fixing the performance was to turn off sections of the level when they are not needed. For example on start, the later sections in the next section are not active yet (see picture). This works in a similar way to the BulletSpawners turning off, but turns off entire sections of the level.
+			</p>
+		</label>
+	</div>
+
+	<div style="padding: 1rem; height: 35rem; overflow: auto">
+		<h4 style="place-self: center">
+			CameraScript.cs:
+		</h4>
+		<label>
+			<p>
+				The CameraScript script is placed on the main camera (which is a child of the player so follows the player around in a first person view).
+			</p>
+
+			<p>
+				However, when the player uses the slow-mo, the camera zooms out to a third person view. This was very challenging, as the camera had to move around at the same rotation as when it is in first person, so they can be switched between them seamlessly.
+			</p>
+
+			<p>
+				This was made without cinemachine, and with only one camera, so the camera itself moved around in third person and snaps back in to first person when needed.
+			</p>
+		</label>
+	</div>
+	<pre style="background-color: black; color: white; padding: 1rem; height: 35rem;">
+		<code>@cameraCode</code>
+	</pre>
+
+	<pre style="background-color: black; color: white; padding: 1rem;  height: 35rem;">
+		<code>@playerCode</code>
+	</pre>
+	<div style="padding: 1rem; height: 35rem; overflow: auto">
+		<h4 style="place-self: center">
+			Player.cs:
+		</h4>
+		<label>
+			<p>
+				The player script is the main controller for all player movement and user input. This includes basic movement and all related physics, and some of the slow-mo mechanics.
+			</p>
+
+			<p>
+				We had many issues where the player would get stuck on walls if they held against the wall. This could be exploited to get into areas they should not be allowed into. We tried giving all walls a slippery material, however there were still sections of walls that could be stuck on, specifically corners of rooms.
+			</p>
+
+			<p>
+				To counter this, we had to do ray casts in each direction to detect if there was a wall nearby, and if so, movement is restricted in that direction. Due to many performance increases (see above), this did not affect the performance very much.
+			</p>
+
+			<p>
+				The player character also has many different animations such as idle; running forwards, backwards, left and right; dying; and dancing.
+			</p>
+		</label>
+	</div>
+</div>
