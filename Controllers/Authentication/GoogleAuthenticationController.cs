@@ -72,7 +72,7 @@ namespace Portfolio.Controllers.Authentication
 				return BackToLogin();
 
 
-			return Redirect("/home");
+			return BackToHome();
 		}
 
 		/// <summary>
@@ -84,11 +84,14 @@ namespace Portfolio.Controllers.Authentication
 		{
 			await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 
-			return BackToLogin();
+			return BackToHome();
 		}
 
 
 		private RedirectResult BackToLogin()
 			=> Redirect("/login");
+
+		private RedirectResult BackToHome()
+			=> Redirect("/home");
 	}
 }
