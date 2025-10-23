@@ -19,7 +19,7 @@ namespace Portfolio.Pages
 		public AuthenticationStateProvider AuthenticationStateProvider { get; set; } = default!;
 
 
-		private string? fullName;
+		private string fullName = "Guest";
 
 
 		/// <inheritdoc/>
@@ -30,7 +30,12 @@ namespace Portfolio.Pages
 			if (state == null)
 				return;
 
-			fullName = state.GetName();
+			var loginName = state.GetName();
+
+			if (loginName == null)
+				return;
+
+			fullName = loginName;
 		}
 	}
 }

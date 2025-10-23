@@ -8,27 +8,20 @@
 @layout LoginLayout
 
 
-<Title>Login</Title>
+<Title>Access Restricted</Title>
 
-@* 
-<div class="login-box">
-	Username:
-	<InputText DisplayName="UserName" @bind-Value=username />
-
-	Password:
-	<InputText DisplayName="Password" @bind-Value=password />
-
-	<button style="margin-top: 10px;" @onclick=Submit>
-		Submit
-	</button>
-</div>
- *@
 
 <div class="login-box">
-	<h1>Welcome Back</h1>
-	<label>Sign in to view my portfolio</label>
+	<h1>Access Restricted</h1>
+	<p>You need to sign in to view this page.</p>
 
 	<GoogleSignInButton />
 
-	<p>Sign in is used for analytic use only.</p>
+	<p>Signing in is optional and only used for analytics and demo purposes.</p>
+
+	<div class="divider">
+		<span>or</span>
+	</div>
+
+	<a href="home" class="btn btn-guest">Continue as Guest</a>
 </div>

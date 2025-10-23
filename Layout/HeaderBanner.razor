@@ -9,7 +9,7 @@
 		Ben Alexander
 	</h1>
 
-	@if (ShowSignOut)
+	@if (ShowSignOut && isAuthenticated)
 	{
 		<GoogleSignOutButton />
 	}
