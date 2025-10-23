@@ -4,12 +4,20 @@ using Microsoft.AspNetCore.Components;
 namespace Portfolio.Components.Login
 {
 	/// <summary>
-	/// Represents a return to login component
+	/// Represents a return to page component
 	/// </summary>
-	public partial class ReturnToLogin : ComponentBase
+	public partial class ReturnToPage : ComponentBase
 	{
 		[Inject]
 		private NavigationManager Navigation { get; set; } = default!;
+
+
+		/// <summary>
+		/// Page to return to
+		/// </summary>
+		[EditorRequired]
+		[Parameter]
+		public string Page { get; set; }
 
 
 		private bool alreadyNavigated;
@@ -23,7 +31,7 @@ namespace Portfolio.Components.Login
 
 			alreadyNavigated = true;
 			await Task.Yield();
-			Navigation.NavigateTo("/login", forceLoad: true);
+			Navigation.NavigateTo(Page, forceLoad: true);
 		}
 	}
 }

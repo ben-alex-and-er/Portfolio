@@ -5,19 +5,12 @@
 @inherits LayoutComponentBase
 
 
-<AuthorizeView>
-	<Authorized>
-		<div class="main">
-			<Header />
+<div class="main">
+	<Header />
 
-			<div class="pad-sides" style="flex-grow: 1; margin: 2% 0;">
-				@Body
-			</div>
+	<div class="pad-sides" style="flex-grow: 1; margin: 2% 0;">
+		@Body
+	</div>
 
-			<Footer />
-		</div>
-	</Authorized>
-	<NotAuthorized>
-		<NotLoggedIn />
-	</NotAuthorized>
-</AuthorizeView>
+	<Footer />
+</div>

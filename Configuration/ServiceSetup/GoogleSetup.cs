@@ -30,7 +30,6 @@ namespace Portfolio.Configuration.ServiceSetup
 			services.AddAuthentication(options =>
 			{
 				options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-				options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
 			})
 			.AddCookie(options =>
 			{
