@@ -5,6 +5,7 @@
 	using Services.Analytics;
 	using Services.Analytics.Interfaces;
 
+
 	public static partial class ServiceCollectionExtensions
 	{
 		/// <summary>
@@ -14,6 +15,9 @@
 		/// <returns></returns>
 		public static IServiceCollection AddAnalyticsServices(this IServiceCollection services)
 		{
+			services.AddSingleton<AnalyticsBackgroundService>();
+			services.AddHostedService(services => services.GetRequiredService<AnalyticsBackgroundService>());
+
 			services.AddTransient<IAnalyticsService, AnalyticsService>();
 
 			services.AddTransient<IAnalyticsDA, AnalyticsDA>();
